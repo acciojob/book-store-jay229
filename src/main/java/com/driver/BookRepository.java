@@ -5,37 +5,59 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BookRepository {
+    HashMap<Integer,Book>bookMap;
 
     public BookRepository(){
-        
+        bookMap=new HashMap<>();
     }
 
     public Book save(Book book){
-        return null;
+        int id= book.getId();
+        bookMap.put(id,book);
+        return book;
     }
 
     public Book findBookById(int id){
-
-        return null;
+        return bookMap.get(id);
     }
 
     public List<Book> findAll(){
-        return null;
+        List<Book> bookList=new ArrayList<>();
+        for (Map.Entry<Integer,Book> entry:bookMap.entrySet()){
+            Book book=entry.getValue();
+            bookList.add(book);
+        }
+        return bookList;
     }
 
     public void deleteBookById(int id){
-        return;
+        bookMap.remove(id);
+
     }
 
     public void deleteAll(){
-        return;
+        bookMap.clear();
     }
 
     public List<Book> findBooksByAuthor(String author){
-        return null;
+        List<Book> bookList=new ArrayList<>();
+        for (Map.Entry<Integer,Book> entry:bookMap.entrySet()){
+            Book book=entry.getValue();
+            if(book.getAuthor().equals(author)){
+                bookList.add(book);
+            }
+        }
+        return bookList;
     }
 
     public List<Book> findBooksByGenre(String genre){
-        return null;
+        List<Book> bookList=new ArrayList<>();
+        for (Map.Entry<Integer,Book> entry:bookMap.entrySet()){
+            Book book=entry.getValue();
+            if(book.getGenre().equals(genre)){
+                bookList.add(book);
+            }
+        }
+        return bookList;
     }
 }
